@@ -14,6 +14,7 @@ Game.prototype = {
         player.name = "Rex";
         player.scale = 6;
         player.id = id;
+        player.side = "left";
 
         return player;
     },
@@ -31,7 +32,8 @@ Game.prototype = {
                 position: player.position,
                 color: player.color,
                 name: player.name,
-                scale: player.scale
+                scale: player.scale,
+                side: player.side
             }
         });
     },
@@ -39,6 +41,11 @@ Game.prototype = {
         this.players = this.players.map(function (playerListItem) {
             if(playerListItem.id == player.id) {
                 if(player.direction == "horizontal") {
+                    if(player.side == "right") {
+                        playerListItem.side = "right";
+                    } else {
+                        playerListItem.side = "left";
+                    }
                     playerListItem.position.x += 10 * player.turn;
                 } else {
                     playerListItem.position.y += 10 * player.turn;

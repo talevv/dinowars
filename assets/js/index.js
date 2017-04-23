@@ -29,12 +29,13 @@ Game.prototype = {
     setId: function(id) {
         this.id = id;
     },
-    movePlayer: function(direction, turn) {
+    movePlayer: function(direction, turn, side) {
 
         var player = {
             id: this.id,
             direction: direction,
-            turn: turn
+            turn: turn,
+            side: side
         }
         socket.emit("move player", player);
     },
@@ -42,7 +43,7 @@ Game.prototype = {
         requestAnimFrame(this.updateBoard.bind(this));
 
         if(keys[39]) {
-            game.movePlayer("horizontal", 1);
+            game.movePlayer("horizontal", 1, "right");
         }
 
         if(keys[37]) {
@@ -59,8 +60,33 @@ Game.prototype = {
 
         board.clearRect(0, 0, canvas.width, canvas.height);
 
+
         this.players.forEach(function (player) {
-            board.drawImage(img, 0, 8 * player.color, 16, 8, player.position.x, player.position.y, 16*scale, 8*scale);
+            // board.save();
+            // board.scale(-1,1);
+            // console.log(player)
+            if(player.side == "right") {
+
+                board.save();
+
+                board.translate(player.position.x + 16*8, 0);
+                board.scale(-1, 1);
+
+                board.drawImage(img, 0, 8 * player.color, 16, 8, 0, player.position.y, 16*scale, 8*scale);
+
+
+                board.restore();
+                // board.restore()
+
+
+            } else {
+                // board.scale(-1, 1);
+                board.drawImage(img, 0, 8 * player.color, 16, 8, player.position.x, player.position.y, 16*scale, 8*scale);
+
+            }
+            // board.scale(-1,1);
+            // board.restore()
+
         });
         //
         // window.requestAnimationFrame(this.updateBoard.bind(this));
