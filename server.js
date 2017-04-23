@@ -14,18 +14,22 @@ app.get('/', function (req, res) {
 
 game = new Game();
 
+// send updated data to every player
+setInterval(function() {
+    io.emit("players list", game.players, game.players);
+}, 1000);
+
 io.on('connection', function(socket){
     console.log('a user connected');
 
     var player = game.generatePlayer(socket.id);
     game.addPlayer(player);
 
-    socket.emit("send id", player.id);
+    socket.to(player.id).emit("send id", player.id);
 
     socket.on('disconnect', function(){
         console.log('user disconnected');
         game.removePlayer(socket.id);
-        console.log(game.players);
     });
 });
 

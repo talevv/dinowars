@@ -15,6 +15,24 @@ img.onload = function() {
 
 img.src = 'img/dinos.png';
 
+var Game = function () {
+    this.players = [];
+}
+
+Game.prototype = {
+    setPlayers: function (players) {
+        this.players = players;
+    }
+}
+
+var game = new Game();
+
+
 socket.on("send id", function(playerId){
   console.log(playerId);
+});
+
+socket.on("players list", function(playersList){
+    game.setPlayers(playersList);
+    console.log(game.players);
 });

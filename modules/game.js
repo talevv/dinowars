@@ -24,6 +24,16 @@ Game.prototype = {
         this.players = this.players.filter( function (player) {
             return player.id !== id;
         });
+    },
+    getPlayers: function() {
+        return this.players.map(function (player) {
+            return {
+                position: player.position,
+                color: player.color,
+                name: player.name,
+                scale: player.scale
+            }
+        });
     }
 }
 
