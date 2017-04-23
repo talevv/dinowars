@@ -15,6 +15,8 @@ img.onload = function() {
 
 img.src = 'img/dinos.png';
 
+var keys = [];
+
 var Game = function () {
     this.id = "";
     this.players = [];
@@ -39,6 +41,22 @@ Game.prototype = {
     updateBoard: function () {
         requestAnimFrame(this.updateBoard.bind(this));
 
+        if(keys[39]) {
+            game.movePlayer("horizontal", 1);
+        }
+
+        if(keys[37]) {
+            game.movePlayer("horizontal", -1);
+        }
+
+        if(keys[38]) {
+            game.movePlayer("", -1);
+        }
+
+        if(keys[40]) {
+            game.movePlayer("", 1);
+        }
+
         board.clearRect(0, 0, canvas.width, canvas.height);
 
         this.players.forEach(function (player) {
@@ -62,25 +80,33 @@ socket.on("players list", function(playersList){
 
 });
 
-document.addEventListener("keydown", function(e) {
-    var keyCode = e.keyCode;
-    console.log(keyCode)
-    if(keyCode == 39) {
-        game.movePlayer("horizontal", 1);
-    }
+// document.addEventListener("keydown", function(e) {
+//     var keyCode = e.keyCode;
+//     console.log(keyCode)
+//     if(keyCode == 39) {
+//         game.movePlayer("horizontal", 1);
+//     }
+//
+//     if(keyCode == 37) {
+//         game.movePlayer("horizontal", -1);
+//     }
+//
+//     if(keyCode == 38) {
+//         game.movePlayer("", -1);
+//     }
+//
+//     if(keyCode == 40) {
+//         game.movePlayer("", 1);
+//     }
+// })
 
-    if(keyCode == 37) {
-        game.movePlayer("horizontal", -1);
-    }
-
-    if(keyCode == 38) {
-        game.movePlayer("", -1);
-    }
-
-    if(keyCode == 40) {
-        game.movePlayer("", 1);
-    }
-})
+// key events
+document.body.addEventListener("keydown", function (e) {
+    keys[e.keyCode] = true;
+});
+document.body.addEventListener("keyup", function (e) {
+    keys[e.keyCode] = false;
+});
 
 
 window.requestAnimFrame = (function(){

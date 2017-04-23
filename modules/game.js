@@ -39,9 +39,9 @@ Game.prototype = {
         this.players = this.players.map(function (playerListItem) {
             if(playerListItem.id == player.id) {
                 if(player.direction == "horizontal") {
-                    playerListItem.position.x += 15 * player.turn;
+                    playerListItem.position.x += 10 * player.turn;
                 } else {
-                    playerListItem.position.y += 15 * player.turn;
+                    playerListItem.position.y += 10 * player.turn;
                 }
             }
             return playerListItem;
