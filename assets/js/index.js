@@ -37,14 +37,15 @@ Game.prototype = {
         socket.emit("move player", player);
     },
     updateBoard: function () {
-        console.log(this)
+        requestAnimFrame(this.updateBoard.bind(this));
+
         board.clearRect(0, 0, canvas.width, canvas.height);
 
         this.players.forEach(function (player) {
-            board.drawImage(img, 0, 0, 16, 8, player.position.x, player.position.y, 16*scale, 8*scale);
+            board.drawImage(img, 0, 8 * player.color, 16, 8, player.position.x, player.position.y, 16*scale, 8*scale);
         });
-
-        window.requestAnimationFrame(this.updateBoard.bind(this));
+        //
+        // window.requestAnimationFrame(this.updateBoard.bind(this));
     }
 }
 
@@ -58,7 +59,7 @@ socket.on("send id", function(playerId){
 
 socket.on("players list", function(playersList){
     game.setPlayers(playersList);
-    console.log(game.players);
+
 });
 
 document.addEventListener("keydown", function(e) {
@@ -67,7 +68,28 @@ document.addEventListener("keydown", function(e) {
     if(keyCode == 39) {
         game.movePlayer("horizontal", 1);
     }
+
+    if(keyCode == 37) {
+        game.movePlayer("horizontal", -1);
+    }
+
+    if(keyCode == 38) {
+        game.movePlayer("", -1);
+    }
+
+    if(keyCode == 40) {
+        game.movePlayer("", 1);
+    }
 })
 
 
-window.requestAnimationFrame(game.updateBoard.bind(game));
+window.requestAnimFrame = (function(){
+  return  window.requestAnimationFrame       ||
+          window.webkitRequestAnimationFrame ||
+          window.mozRequestAnimationFrame    ||
+          function( callback ){
+            window.setTimeout(callback, 1000 / 250);
+          };
+})();
+
+game.updateBoard();

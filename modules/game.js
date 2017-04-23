@@ -6,10 +6,10 @@ function Game() {
 Game.prototype = {
     generatePlayer: function (id) {
         var player = {};
-        player.color = "red";
+        player.color = Math.floor((Math.random() * 3) + 0);
         player.position = {
-            x: 0,
-            y: 0
+            x: Math.floor((Math.random() * 600) + 0),
+            y: Math.floor((Math.random() * 400) + 0)
         }
         player.name = "Rex";
         player.scale = 6;
@@ -39,9 +39,9 @@ Game.prototype = {
         this.players = this.players.map(function (playerListItem) {
             if(playerListItem.id == player.id) {
                 if(player.direction == "horizontal") {
-                    playerListItem.position.x += 0.3 * player.turn;
+                    playerListItem.position.x += 15 * player.turn;
                 } else {
-                    playerListItem.position.y += 10 * player.turn;
+                    playerListItem.position.y += 15 * player.turn;
                 }
             }
             return playerListItem;
