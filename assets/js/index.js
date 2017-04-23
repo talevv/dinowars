@@ -28,12 +28,23 @@ Game.prototype = {
         this.id = id;
     },
     movePlayer: function(direction, turn) {
+
         var player = {
             id: this.id,
             direction: direction,
             turn: turn
         }
         socket.emit("move player", player);
+    },
+    updateBoard: function () {
+        console.log(this)
+        board.clearRect(0, 0, canvas.width, canvas.height);
+
+        this.players.forEach(function (player) {
+            board.drawImage(img, 0, 0, 16, 8, player.position.x, player.position.y, 16*scale, 8*scale);
+        });
+
+        window.requestAnimationFrame(this.updateBoard.bind(this));
     }
 }
 
@@ -57,3 +68,6 @@ document.addEventListener("keydown", function(e) {
         game.movePlayer("horizontal", 1);
     }
 })
+
+
+window.requestAnimationFrame(game.updateBoard.bind(game));

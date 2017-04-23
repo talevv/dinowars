@@ -17,7 +17,7 @@ game = new Game();
 // send updated data to every player
 setInterval(function() {
     io.emit("players list", game.players);
-}, 1000);
+}, 4);
 
 io.on('connection', function(socket){
     console.log('a user connected');
