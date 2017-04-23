@@ -80,26 +80,6 @@ socket.on("players list", function(playersList){
 
 });
 
-// document.addEventListener("keydown", function(e) {
-//     var keyCode = e.keyCode;
-//     console.log(keyCode)
-//     if(keyCode == 39) {
-//         game.movePlayer("horizontal", 1);
-//     }
-//
-//     if(keyCode == 37) {
-//         game.movePlayer("horizontal", -1);
-//     }
-//
-//     if(keyCode == 38) {
-//         game.movePlayer("", -1);
-//     }
-//
-//     if(keyCode == 40) {
-//         game.movePlayer("", 1);
-//     }
-// })
-
 // key events
 document.body.addEventListener("keydown", function (e) {
     keys[e.keyCode] = true;
@@ -110,12 +90,12 @@ document.body.addEventListener("keyup", function (e) {
 
 
 window.requestAnimFrame = (function(){
-  return  window.requestAnimationFrame       ||
-          window.webkitRequestAnimationFrame ||
-          window.mozRequestAnimationFrame    ||
-          function( callback ){
+    return  window.requestAnimationFrame   ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame    ||
+        function( callback ){
             window.setTimeout(callback, 1000 / 250);
-          };
+        };
 })();
 
 game.updateBoard();
