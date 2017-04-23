@@ -16,12 +16,24 @@ img.onload = function() {
 img.src = 'img/dinos.png';
 
 var Game = function () {
+    this.id = "";
     this.players = [];
 }
 
 Game.prototype = {
     setPlayers: function (players) {
         this.players = players;
+    },
+    setId: function(id) {
+        this.id = id;
+    },
+    movePlayer: function(direction, turn) {
+        var player = {
+            id: this.id,
+            direction: direction,
+            turn: turn
+        }
+        socket.emit("move player", player);
     }
 }
 
@@ -29,10 +41,19 @@ var game = new Game();
 
 
 socket.on("send id", function(playerId){
-  console.log(playerId);
+    game.setId(playerId);
+    console.log(game.id);
 });
 
 socket.on("players list", function(playersList){
     game.setPlayers(playersList);
     console.log(game.players);
 });
+
+document.addEventListener("keydown", function(e) {
+    var keyCode = e.keyCode;
+    console.log(keyCode)
+    if(keyCode == 39) {
+        game.movePlayer("horizontal", 1);
+    }
+})
