@@ -1,25 +1,26 @@
-var canvas = document.querySelector("canvas");
-var board = canvas.getContext("2d");
-var dinos = document.getElementById("scream");
+const canvas = document.querySelector("canvas");
+const board = canvas.getContext("2d");
+const dinos = document.getElementById("scream");
 board.imageSmoothingEnabled = false;
 
-var socket = io();
+const socket = io();
 
-var img = new Image();
 
 var scale = 6;
 
-img.onload = function() {
-    board.drawImage(img, 0, 0, 16, 8, 0, 0, 16*scale, 8*scale);
-}
 
-img.src = 'img/dinos.png';
+const keys = [];
 
-var keys = [];
-
-var Game = function () {
+const Game = function () {
     this.id = "";
     this.players = [];
+    this.playerImage = new Image();
+    this.playerImageScale = 6;
+    this.playerImage.onload = () => {
+        board.drawImage(this.playerImage, 0, 0, 16, 8, 0, 0, 16*this.playerImageScale, 8*this.playerImageScale);
+        //this.drawImage(0, 0, 0, this.playerImageScale);
+    }
+    this.playerImage.src = 'img/dinos.png';
 }
 
 Game.prototype = {
@@ -31,13 +32,16 @@ Game.prototype = {
     },
     movePlayer: function(direction, turn, side) {
 
-        var player = {
+        const player = {
             id: this.id,
             direction: direction,
             turn: turn,
             side: side
         }
         socket.emit("move player", player);
+    },
+    drawImage: function (positionX, positionY, color, scale) {
+        board.drawImage(this.playerImage, 0, 8 * color, 16, 8, positionX, positionY, 16*scale, 8*scale);
     },
     updateBoard: function () {
         requestAnimFrame(this.updateBoard.bind(this));
@@ -61,10 +65,7 @@ Game.prototype = {
         board.clearRect(0, 0, canvas.width, canvas.height);
 
 
-        this.players.forEach(function (player) {
-            // board.save();
-            // board.scale(-1,1);
-            // console.log(player)
+        this.players.forEach((player) => {
             if(player.side == "right") {
 
                 board.save();
@@ -72,28 +73,20 @@ Game.prototype = {
                 board.translate(player.position.x + 16*8, 0);
                 board.scale(-1, 1);
 
-                board.drawImage(img, 0, 8 * player.color, 16, 8, 0, player.position.y, 16*scale, 8*scale);
-
+                this.drawImage(0, player.position.y, player.color, this.playerImageScale);
 
                 board.restore();
-                // board.restore()
 
 
             } else {
-                // board.scale(-1, 1);
-                board.drawImage(img, 0, 8 * player.color, 16, 8, player.position.x, player.position.y, 16*scale, 8*scale);
-
+                this.drawImage(player.position.x, player.position.y, player.color, this.playerImageScale);
             }
-            // board.scale(-1,1);
-            // board.restore()
 
         });
-        //
-        // window.requestAnimationFrame(this.updateBoard.bind(this));
     }
 }
 
-var game = new Game();
+const game = new Game();
 
 
 socket.on("send id", function(playerId){
