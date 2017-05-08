@@ -38,18 +38,20 @@ Game.prototype = {
         });
     },
     movePlayer: function(player) {
-        var i = 0;
-        while(this.players[i].id != player.id && i < this.players.length) { i++ }
-        if(i < this.players.length) {
+        var playerToMove = this.players.find(function(playerArray) {
+            return playerArray.id == player.id;
+        });
+
+        if(playerToMove != undefined){
             if(player.direction == "horizontal") {
                 if(player.side == "right") {
-                    this.players[i].side = "right";
+                    playerToMove.side = "right";
                 } else {
-                    this.players[i].side = "left";
+                    playerToMove.side = "left";
                 }
-                this.players[i].position.x += 10 * player.turn;
+                playerToMove.position.x += 10 * player.turn;
             } else {
-                this.players[i].position.y += 10 * player.turn;
+                playerToMove.position.y += 10 * player.turn;
             }
         }
 

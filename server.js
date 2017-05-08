@@ -14,11 +14,6 @@ app.get('/', function (req, res) {
 
 game = new Game();
 
-// send updated data to every player
-setInterval(function() {
-    io.emit("players list", game.players);
-}, 1);
-
 io.on('connection', function(socket){
     console.log('a user connected');
 
@@ -34,7 +29,7 @@ io.on('connection', function(socket){
 
     socket.on('move player', function(player){
         game.movePlayer(player);
-        // io.emit("players list", game.players);
+        io.emit("players list", game.players);
     });
 });
 
