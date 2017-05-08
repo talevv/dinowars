@@ -21,10 +21,12 @@ io.on('connection', function(socket){
     game.addPlayer(player);
 
     socket.emit("send id", player.id);
+    io.emit("players list", game.players);
 
     socket.on('disconnect', function(){
         console.log('user disconnected');
         game.removePlayer(socket.id);
+        io.emit("players list", game.players);
     });
 
     socket.on('move player', function(player){
