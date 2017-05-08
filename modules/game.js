@@ -1,3 +1,4 @@
+"use strict";
 
 function Game() {
     this.players = [];
@@ -5,7 +6,7 @@ function Game() {
 
 Game.prototype = {
     generatePlayer: function (id) {
-        var player = {};
+        const player = {};
         player.color = Math.floor((Math.random() * 3) + 0);
         player.position = {
             x: Math.floor((Math.random() * 600) + 0),

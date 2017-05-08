@@ -1,8 +1,10 @@
-var express = require("express");
-var app = express();
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
-var Game = require("./modules/game.js");
+"use strict";
+
+const express = require("express");
+const app = express();
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+const Game = require("./modules/game.js");
 
 
 app.use(express.static('assets'));
@@ -12,12 +14,12 @@ app.get('/', function (req, res) {
 });
 
 
-game = new Game();
+const game = new Game();
 
 io.on('connection', function(socket){
     console.log('a user connected');
 
-    var player = game.generatePlayer(socket.id);
+    const player = game.generatePlayer(socket.id);
     game.addPlayer(player);
 
     socket.emit("send id", player.id);
