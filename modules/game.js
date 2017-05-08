@@ -38,21 +38,21 @@ Game.prototype = {
         });
     },
     movePlayer: function(player) {
-        this.players = this.players.map(function (playerListItem) {
-            if(playerListItem.id == player.id) {
-                if(player.direction == "horizontal") {
-                    if(player.side == "right") {
-                        playerListItem.side = "right";
-                    } else {
-                        playerListItem.side = "left";
-                    }
-                    playerListItem.position.x += 10 * player.turn;
+        var i = 0;
+        while(this.players[i].id != player.id && i < this.players.length) { i++ }
+        if(i < this.players.length) {
+            if(player.direction == "horizontal") {
+                if(player.side == "right") {
+                    this.players[i].side = "right";
                 } else {
-                    playerListItem.position.y += 10 * player.turn;
+                    this.players[i].side = "left";
                 }
+                this.players[i].position.x += 10 * player.turn;
+            } else {
+                this.players[i].position.y += 10 * player.turn;
             }
-            return playerListItem;
-        });
+        }
+
     }
 }
 
