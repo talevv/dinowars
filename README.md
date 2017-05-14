@@ -1,7 +1,7 @@
 # dinowars
 My university project - network game
 
-# install
+# installation
 
 npm install
 
