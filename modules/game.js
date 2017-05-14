@@ -16,8 +16,8 @@ Game.prototype = {
         const player = {};
         player.color = Math.floor((Math.random() * 3) + 0);
         player.position = {
-            x: Math.floor((Math.random() * 600) + 0),
-            y: Math.floor((Math.random() * 400) + 0)
+            x: Math.floor((Math.random() * 1550) + 50),
+            y: Math.floor((Math.random() * 750) + 5)
         }
         player.name = "Rex";
         player.scale = 6;

@@ -9,8 +9,8 @@ FoodGenerator.prototype.generateFood = function() {
     while(this.food.length < this.maxAmount) {
         let foodStat = {
             id: Math.random(),
-            x: Math.floor((Math.random() * 780) + 20),
-            y: Math.floor((Math.random() * 580) + 20),
+            x: Math.floor((Math.random() * 1550) + 50),
+            y: Math.floor((Math.random() * 750) + 50),
             //scale: Math.floor((Math.random() * 20) + 10)
             color: Math.floor((Math.random() * 3) + 0),
             scale: 2
