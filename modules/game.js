@@ -82,6 +82,8 @@ Game.prototype = {
             collision.hasCollision(collisionPlayer, collisionFood, () => { 
                 this.foodGenerator.removeFood(food.id)
                 console.log("col")
+                playerToMove.scale += 0.2;
+                this.foodGenerator.generateFood();
             });
         });        
 

@@ -25,6 +25,7 @@ io.on('connection', function(socket){
 
     socket.emit("send id", player.id);
     io.emit("players list", game.players);
+    io.emit("food list", game.foodGenerator.food);
 
     socket.on('disconnect', function(){
         console.log('user disconnected');

@@ -85,13 +85,14 @@
                     board.translate(player.position.x + 16*8, 0);
                     board.scale(-1, 1);
 
-                    this.drawImage(0, player.position.y, player.color, this.playerImageScale);
+                    //this.drawImage(0, player.position.y, player.color, this.playerImageScale);
+                    this.drawImage(0, player.position.y, player.color, player.scale);
 
                     board.restore();
 
 
                 } else {
-                    this.drawImage(player.position.x, player.position.y, player.color, this.playerImageScale);
+                    this.drawImage(player.position.x, player.position.y, player.color, player.scale);
                 }
 
             });
