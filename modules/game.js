@@ -1,7 +1,11 @@
 "use strict";
 
+const FoodGenerator = require("./food_generator.js");
+
 function Game() {
     this.players = [];
+    this.foodGenerator = new FoodGenerator();
+    this.foodGenerator.generateFood();
 }
 
 Game.prototype = {

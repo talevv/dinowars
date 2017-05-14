@@ -5,7 +5,8 @@ const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const Game = require("./modules/game.js");
-
+const Collision = require("./modules/collision.js");
+const FoodGenerator = require("./modules/food_generator.js")
 
 app.use(express.static('assets'));
 
@@ -34,6 +35,7 @@ io.on('connection', function(socket){
     socket.on('move player', function(player){
         game.movePlayer(player);
         io.emit("players list", game.players);
+        io.emit("food list", game.foodGenerator.food);
     });
 });
 

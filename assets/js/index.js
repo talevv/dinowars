@@ -12,6 +12,7 @@
     const Game = function () {
         this.id = "";
         this.players = [];
+        this.food = [];
         this.playerImage = new Image();
         this.playerImageScale = 6;
         this.playerImage.onload = () => {
@@ -27,6 +28,9 @@
         setId: function(id) {
             this.id = id;
         },
+        setFood: function(food) {
+            this.food = food; 
+        },
         movePlayer: function(direction, turn, side) {
 
             const player = {
@@ -39,6 +43,10 @@
         },
         drawImage: function (positionX, positionY, color, scale) {
             board.drawImage(this.playerImage, 0, 8 * color, 16, 8, positionX, positionY, 16*scale, 8*scale);
+        },
+        drawFood: function (positionX, positionY, scale) {
+            board.fillStyle = "#ffffff"
+            board.fillRect(positionX, positionY, scale, scale);
         },
         updateBoard: function () {
             requestAnimFrame(this.updateBoard.bind(this));
@@ -80,6 +88,10 @@
                 }
 
             });
+
+            this.food.forEach((food) => {
+                this.drawFood(food.x, food.y, food.scale); 
+            })
         }
     }
 
@@ -94,6 +106,9 @@
     socket.on("players list", function(playersList){
         game.setPlayers(playersList);
 
+    });
+    socket.on("food list", function(foodList){
+        game.setFood(foodList);
     });
 
     // key events
