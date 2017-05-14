@@ -8,10 +8,12 @@ function FoodGenerator() {
 FoodGenerator.prototype.generateFood = function() {
     while(this.food.length < this.maxAmount) {
         let foodStat = {
-            //id: Math.random(),
+            id: Math.random(),
             x: Math.floor((Math.random() * 780) + 20),
             y: Math.floor((Math.random() * 580) + 20),
-            scale: 10
+            //scale: Math.floor((Math.random() * 20) + 10)
+            color: Math.floor((Math.random() * 3) + 0),
+            scale: 2
         }
         this.food.push(foodStat);
     }

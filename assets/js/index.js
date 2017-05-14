@@ -19,6 +19,14 @@
             this.drawImage(0, 0, 0, this.playerImageScale);
         }
         this.playerImage.src = 'img/dinos.png';
+
+        
+        this.foodImage = new Image();
+        this.foodImageScale = 3;
+        this.foodImage.onload = () => {
+            this.drawImage(0, 0, 0, this.foodImageScale);
+        }
+        this.foodImage.src = 'img/humans.png';
     }
 
     Game.prototype = {
@@ -44,9 +52,8 @@
         drawImage: function (positionX, positionY, color, scale) {
             board.drawImage(this.playerImage, 0, 8 * color, 16, 8, positionX, positionY, 16*scale, 8*scale);
         },
-        drawFood: function (positionX, positionY, scale) {
-            board.fillStyle = "#ffffff"
-            board.fillRect(positionX, positionY, scale, scale);
+        drawFood: function (positionX, positionY, color, scale) {
+           board.drawImage(this.foodImage, 0, 14 * color, 11, 14, positionX, positionY, 11*scale, 14*scale); 
         },
         updateBoard: function () {
             requestAnimFrame(this.updateBoard.bind(this));
@@ -90,7 +97,7 @@
             });
 
             this.food.forEach((food) => {
-                this.drawFood(food.x, food.y, food.scale); 
+                this.drawFood(food.x, food.y,food.color, food.scale); 
             })
         }
     }
