@@ -9,22 +9,26 @@ Collision.prototype.hasCollision = function(first, second, callback) {
     //    
     //} 
     let firstObj = {
-        left: first.x,
-        right: first.x + first.width,
-        top: first.y,
-        bottom: first.y + first.height
+        left: first.position.x,
+        right: first.position.x + first.width,
+        top: first.position.y,
+        bottom: first.position.y + first.height
     }
 
     let secondObj = {
-        left: second.x,
-        right: second.x + second.width,
-        top: second.y,
-        bottom: second.y + second.height
+        left: second.position.x,
+        right: second.position.x + second.width,
+        top: second.position.y,
+        bottom: second.position.y + second.height
     }
-    
+
+
+    //console.log("player: ", firstObj) 
+    //console.log("food: ", secondObj) 
     // if dino eat whole point
     if(secondObj.left >= firstObj.left && secondObj.top >= firstObj.top && secondObj.right <= firstObj.right && secondObj.bottom <= firstObj.bottom) {
         callback();
+
     }
     
 }

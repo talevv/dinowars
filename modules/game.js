@@ -1,6 +1,9 @@
 "use strict";
 
 const FoodGenerator = require("./food_generator.js");
+const Collision = require("./collision.js");
+
+const collision = new Collision();
 
 function Game() {
     this.players = [];
@@ -59,6 +62,28 @@ Game.prototype = {
                 playerToMove.position.y += 10 * player.turn;
             }
         }
+
+        let collisionPlayer = {
+            position: playerToMove.position,
+            width: 16 * playerToMove.scale,
+            height: 8 * playerToMove.scale
+        }
+
+        this.foodGenerator.food.forEach((food) => {
+            let collisionFood = {
+                position: { 
+                  x: food.x,
+                  y: food.y
+                },
+                width: 11*food.scale,
+                height: 14*food.scale
+                    
+            }
+            collision.hasCollision(collisionPlayer, collisionFood, () => { 
+                this.foodGenerator.removeFood(food.id)
+                console.log("col")
+            });
+        });        
 
     }
 }
