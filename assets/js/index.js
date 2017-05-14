@@ -23,9 +23,6 @@
         
         this.foodImage = new Image();
         this.foodImageScale = 3;
-        this.foodImage.onload = () => {
-            this.drawImage(0, 0, 0, this.foodImageScale);
-        }
         this.foodImage.src = 'img/humans.png';
     }
 
@@ -82,7 +79,7 @@
 
                     board.save();
 
-                    board.translate(player.position.x + 16*8, 0);
+                    board.translate(player.position.x + 16*player.scale, 0);
                     board.scale(-1, 1);
 
                     //this.drawImage(0, player.position.y, player.color, this.playerImageScale);
