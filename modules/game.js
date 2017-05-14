@@ -87,6 +87,23 @@ Game.prototype = {
             });
         });        
 
+        this.players.forEach((dino) => {
+            if(dino.id == playerToMove.id) return;
+            let collisionDino = {
+                position: dino.position,
+                width: 16 * dino.scale,
+                height: 8 * dino.scale
+            }
+            collision.hasCollision(collisionPlayer, collisionDino, () => {
+                console.log("dinoooooooo")
+                if(dino.scale > playerToMove.scale) {
+                    this.removePlayer(playerToMove.id);
+                } else {
+                    this.removePlayer(dino.id);
+                }
+            })
+        });
+
     }
 }
 

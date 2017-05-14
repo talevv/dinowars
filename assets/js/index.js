@@ -14,13 +14,7 @@
         this.players = [];
         this.food = [];
         this.playerImage = new Image();
-        this.playerImageScale = 6;
-        this.playerImage.onload = () => {
-            this.drawImage(0, 0, 0, this.playerImageScale);
-        }
         this.playerImage.src = 'img/dinos.png';
-
-        
         this.foodImage = new Image();
         this.foodImageScale = 3;
         this.foodImage.src = 'img/humans.png';
@@ -50,7 +44,7 @@
             board.drawImage(this.playerImage, 0, 8 * color, 16, 8, positionX, positionY, 16*scale, 8*scale);
         },
         drawFood: function (positionX, positionY, color, scale) {
-           board.drawImage(this.foodImage, 0, 14 * color, 11, 14, positionX, positionY, 11*scale, 14*scale); 
+            board.drawImage(this.foodImage, 0, 14 * color, 11, 14, positionX, positionY, 11*scale, 14*scale); 
         },
         updateBoard: function () {
             requestAnimFrame(this.updateBoard.bind(this));
@@ -82,7 +76,6 @@
                     board.translate(player.position.x + 16*player.scale, 0);
                     board.scale(-1, 1);
 
-                    //this.drawImage(0, player.position.y, player.color, this.playerImageScale);
                     this.drawImage(0, player.position.y, player.color, player.scale);
 
                     board.restore();
